@@ -804,51 +804,54 @@
       </div>
     </div>
     <div class="reveal reveal-delay1">
-      <form class="lp-form" id="lpForm" novalidate>
+      <form class="lp-form" id="lpForm" novalidate
+            action="https://docs.google.com/forms/d/e/1FAIpQLScgBbGgW7Ro2gUoQGCbTojVETf3D5_VeGPBZFPp78ESAETe-g/formResponse"
+            method="POST" target="lpform-sink">
         <div class="form-row">
           <div class="field">
             <label for="name">お名前<span class="req">必須</span></label>
-            <input type="text" id="name" name="name" required autocomplete="name" />
+            <input type="text" id="name" name="entry.1632571831" required autocomplete="name" />
           </div>
           <div class="field">
             <label for="phone">電話番号<span class="req">必須</span></label>
-            <input type="tel" id="phone" name="phone" required autocomplete="tel" />
+            <input type="tel" id="phone" name="entry.1813467908" required autocomplete="tel" />
           </div>
         </div>
         <div class="form-row">
           <div class="field">
-            <label for="email">メールアドレス</label>
-            <input type="email" id="email" name="email" autocomplete="email" />
+            <label for="email">メールアドレス<span class="req">必須</span></label>
+            <input type="email" id="email" name="entry.211255781" required autocomplete="email" />
           </div>
           <div class="field">
             <label for="address">ご住所（任意）</label>
-            <input type="text" id="address" name="address" autocomplete="address-line1" />
+            <input type="text" id="address" name="entry.299607869" autocomplete="address-line1" />
           </div>
         </div>
         <div class="field">
           <label>ご相談内容</label>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="topic" value="外壁塗装"/>外壁塗装・外壁補修</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="屋根修繕"/>屋根修繕・雨漏り</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="内装全般"/>内装全般</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="クロス"/>クロス張替え</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="水回り"/>水回りリフォーム</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="設備工事・CF張替え"/>設備工事・CF張替え</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="照明器具交換"/>照明器具交換</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="テナント塗装"/>テナント店内の塗装</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="保険申請"/>火災保険申請サポート</label>
-            <label class="check-item"><input type="checkbox" name="topic" value="不用品回収"/>遺品整理・不用品回収</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="外壁塗装・外壁補修"/>外壁塗装・外壁補修</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="屋根修繕・雨漏り"/>屋根修繕・雨漏り</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="内装全般"/>内装全般</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="クロス張替え"/>クロス張替え</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="水回りリフォーム"/>水回りリフォーム</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="設備工事・CF張替え"/>設備工事・CF張替え</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="照明器具交換"/>照明器具交換</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="テナント店内の塗装"/>テナント店内の塗装</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="火災保険申請サポート"/>火災保険申請サポート</label>
+            <label class="check-item"><input type="checkbox" name="entry.770300659" value="遺品整理・不用品回収"/>遺品整理・不用品回収</label>
           </div>
         </div>
         <div class="field">
-          <label for="message">お問い合わせ内容</label>
-          <textarea id="message" name="message" placeholder="被害の状況やご希望の時期など、わかる範囲でご記入ください"></textarea>
+          <label for="message">お問い合わせ内容<span class="req">必須</span></label>
+          <textarea id="message" name="entry.1303167861" required placeholder="被害の状況やご希望の時期など、わかる範囲でご記入ください"></textarea>
         </div>
         <div class="form-foot">
           <button type="submit" class="btn btn-primary">この内容で送信する</button>
           <span class="form-note">送信後、担当者より折り返しご連絡いたします。</span>
         </div>
       </form>
+      <iframe name="lpform-sink" style="display:none" title="送信"></iframe>
       <div class="form-success" id="formSuccess">
         <h3>お問い合わせありがとうございます。</h3>
         <p>内容を確認のうえ、担当者よりご連絡いたします。お急ぎの場合はお電話（011-312-5710）でもご相談いただけます。</p>
@@ -944,14 +947,15 @@
     });
   });
 
-  // contact form (front-end only demo submission)
+  // contact form (submits to Google Forms via hidden iframe, no page reload)
   var form = document.getElementById('lpForm');
   var success = document.getElementById('formSuccess');
   form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if (!form.checkValidity()){ form.reportValidity(); return; }
-    form.style.display = 'none';
-    success.classList.add('show');
+    if (!form.checkValidity()){ e.preventDefault(); form.reportValidity(); return; }
+    setTimeout(function(){
+      form.style.display = 'none';
+      success.classList.add('show');
+    }, 300);
   });
 
 </script>
