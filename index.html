@@ -81,19 +81,14 @@
   .section-bg.is-visible{opacity:1;}
   .section-bg::before{
     content:"";position:absolute;inset:0;
-    background-image:url("img/01after.png");
     background-size:cover;
     background-position:center center;
     filter:blur(3px) saturate(.92);
     transform:scale(1.06);
   }
-  .section-bg--top::before{background-position:center top;}
-  .section-bg--bottom::before{background-position:center bottom;}
-  /* 施工事例はカード内の写真と重複しないよう外観写真を使用 */
-  .section-bg--exterior::before{
-    background-image:url("img/hero-reform.jpg");
-    background-position:center 38%;
-  }
+  .section-bg--trouble::before{background-image:url("img/trouble.jpg");}
+  .section-bg--service::before{background-image:url("img/service.jpg");}
+  .section-bg--case::before{background-image:url("img/case.jpg");}
   .section-bg::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,
@@ -540,7 +535,7 @@
 </section>
 
 <section class="pain section-pad">
-  <div class="section-bg section-bg--top"></div>
+  <div class="section-bg section-bg--trouble"></div>
   <div class="wrap">
     <div class="pain-head reveal">
       <span class="eyebrow">Trouble</span>
@@ -601,7 +596,7 @@
 </section>
 
 <section class="service section-pad" id="service" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-  <div class="section-bg"></div>
+  <div class="section-bg section-bg--service"></div>
   <div class="wrap">
     <span class="eyebrow reveal">Service</span>
     <h2 class="reveal reveal-delay1" style="font-size:clamp(24px,3vw,34px);margin-top:16px;">対応工事・サービス一覧</h2>
@@ -700,7 +695,7 @@
 </section>
 
 <section class="cases section-pad" id="case" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-  <div class="section-bg section-bg--exterior"></div>
+  <div class="section-bg section-bg--case"></div>
   <div class="wrap">
     <span class="eyebrow reveal">Case</span>
     <h2 class="reveal reveal-delay1" style="font-size:clamp(24px,3vw,34px);margin-top:16px;">施工事例</h2>
