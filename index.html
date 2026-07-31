@@ -329,7 +329,23 @@
 
   /* ---------- Cases ---------- */
   .cases-lede{margin-top:16px;color:var(--ink-soft);font-size:15px;max-width:60ch;}
-  .case-grid{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+
+  /* カテゴリ絞り込み（カード数・カテゴリはJSが自動集計） */
+  .case-filter{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;}
+  .case-filter button{
+    font-family:var(--sans);font-size:13px;font-weight:600;line-height:1.4;
+    border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+    padding:9px 17px;border-radius:20px;cursor:pointer;
+    transition:background-color .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .case-filter button:hover{border-color:var(--accent);color:var(--accent);}
+  .case-filter button[aria-pressed="true"]{
+    background:var(--accent);border-color:var(--accent);color:#fbf4ee;
+  }
+
+  .case-grid{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
+  .case-card.is-hidden{display:none;}
+  .case-more{display:none;justify-content:center;margin-top:44px;}
   @media (max-width:900px){.case-grid{grid-template-columns:1fr;}}
   .case-card{
     border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--paper);
@@ -700,8 +716,19 @@
     <span class="eyebrow reveal">Case</span>
     <h2 class="reveal reveal-delay1" style="font-size:clamp(24px,3vw,34px);margin-top:16px;">施工事例</h2>
     <p class="cases-lede reveal reveal-delay1">実際に手がけた施工事例を、Before / Afterの写真とあわせてご紹介します。</p>
-    <div class="case-grid">
-      <div class="case-card reveal">
+
+    <!-- 絞り込みボタンは下のカードの data-category から自動生成されます -->
+    <div class="case-filter reveal reveal-delay1" id="caseFilter"></div>
+
+    <!--
+      ▼ 事例の追加方法
+      下の <div class="case-card"> ～ </div> を1つコピーして貼り付け、
+      data-category / 画像パス / タグ / 見出し / 説明文を書き換えるだけで追加できます。
+      ・data-category と <span class="case-tag"> は同じ文言にしてください（絞り込みの見出しになります）
+      ・7件目からは「もっと見る」ボタンが自動で表示されます
+    -->
+    <div class="case-grid" id="caseGrid">
+      <div class="case-card reveal" data-category="外壁塗装・外壁補修">
         <div class="case-photo">
           <div class="case-photo-slot"><img src="img/01before.jpg" alt="施工前" loading="lazy"/><span>Before</span></div>
           <div class="case-photo-slot"><img src="img/01after.png" alt="施工後" loading="lazy"/><span>After</span></div>
@@ -712,7 +739,7 @@
           <p>積雪の影響で生じた外壁のひび割れを、保険申請サポートとあわせて修復した事例です。</p>
         </div>
       </div>
-      <div class="case-card reveal reveal-delay1">
+      <div class="case-card reveal reveal-delay1" data-category="内装全般">
         <div class="case-photo">
           <div class="case-photo-slot"><img src="img/02before.jpg" alt="施工前" loading="lazy"/><span>Before</span></div>
           <div class="case-photo-slot"><img src="img/02after.png" alt="施工後" loading="lazy"/><span>After</span></div>
@@ -723,7 +750,7 @@
           <p>床・壁・天井から建具まで、お部屋の内装をまとめてリフォームした事例です。</p>
         </div>
       </div>
-      <div class="case-card reveal reveal-delay2">
+      <div class="case-card reveal reveal-delay2" data-category="水回りリフォーム">
         <div class="case-photo">
           <div class="case-photo-slot"><img src="img/03before.png" alt="施工前" loading="lazy"/><span>Before</span></div>
           <div class="case-photo-slot"><img src="img/03after.jpg" alt="施工後" loading="lazy"/><span>After</span></div>
@@ -734,6 +761,10 @@
           <p>老朽化した設備を、断熱性や使いやすさを考慮した最新設備に入れ替えた事例です。</p>
         </div>
       </div>
+    </div>
+
+    <div class="case-more" id="caseMore">
+      <button type="button" class="btn btn-ghost">もっと見る</button>
     </div>
   </div>
 </section>
@@ -948,6 +979,76 @@
   } else {
     revealEls.forEach(function(el){ el.classList.add('is-visible'); });
   }
+
+  // 施工事例：カテゴリ絞り込み ＋ もっと見る
+  (function(){
+    var grid = document.getElementById('caseGrid');
+    var filterWrap = document.getElementById('caseFilter');
+    var moreWrap = document.getElementById('caseMore');
+    if(!grid || !filterWrap || !moreWrap) return;
+
+    var moreBtn = moreWrap.querySelector('button');
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.case-card'));
+    var STEP = 6;            // 初期表示件数
+    var ALL = 'すべて';
+    var current = ALL;
+    var expanded = false;
+
+    // カードの data-category からカテゴリを自動集計
+    var cats = [ALL];
+    cards.forEach(function(c){
+      var cat = c.getAttribute('data-category');
+      if(cat && cats.indexOf(cat) === -1) cats.push(cat);
+    });
+
+    cats.forEach(function(cat){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = cat;
+      b.setAttribute('aria-pressed', cat === current ? 'true' : 'false');
+      b.addEventListener('click', function(){
+        current = cat;
+        expanded = false;
+        filterWrap.querySelectorAll('button').forEach(function(x){
+          x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+        });
+        render(true);
+      });
+      filterWrap.appendChild(b);
+    });
+
+    // カテゴリが1種類しかないうちは絞り込みを出さない
+    if(cats.length <= 2) filterWrap.style.display = 'none';
+
+    function matches(card){
+      return current === ALL || card.getAttribute('data-category') === current;
+    }
+
+    // force=true のときは（絞り込み・もっと見る操作）その場で表示する
+    function render(force){
+      var shown = 0;
+      cards.forEach(function(card){
+        var visible = false;
+        if(matches(card)){
+          visible = expanded || shown < STEP;
+          shown++;
+        }
+        card.classList.toggle('is-hidden', !visible);
+        if(visible && force) card.classList.add('is-visible');
+      });
+
+      var rest = shown - (expanded ? shown : Math.min(shown, STEP));
+      moreWrap.style.display = rest > 0 ? 'flex' : 'none';
+      if(rest > 0) moreBtn.textContent = 'もっと見る（残り' + rest + '件）';
+    }
+
+    moreBtn.addEventListener('click', function(){
+      expanded = true;
+      render(true);
+    });
+
+    render(false);
+  })();
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(function(item){
