@@ -426,11 +426,39 @@
   .contact-side h2{font-size:clamp(24px,3vw,32px);margin-top:16px;}
   .contact-side p{margin-top:18px;color:var(--ink-soft);font-size:15px;max-width:44ch;}
   .contact-phone{
-    margin-top:32px;padding:22px 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);
+    position:relative;
+    margin-top:32px;padding:24px 24px 22px;
+    border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius:var(--radius);
+    background:color-mix(in srgb, var(--accent) 5%, var(--paper));
   }
-  .contact-phone .label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase;}
-  .contact-phone .num{font-family:var(--serif);font-size:28px;margin-top:8px;display:block;text-decoration:none;color:var(--ink);}
+  /* 「担当者直通」バッジ：枠線にまたがせて目立たせる */
+  .contact-phone .direct{
+    position:absolute;top:-11px;left:22px;
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--accent);color:#fbf4ee;
+    font-size:12px;font-weight:700;letter-spacing:.04em;
+    padding:4px 12px;border-radius:20px;
+    white-space:nowrap;
+  }
+  .contact-phone .direct svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+  .contact-phone .num{
+    display:inline-flex;align-items:center;gap:12px;
+    margin-top:6px;text-decoration:none;color:var(--ink);
+    font-family:var(--serif);font-size:clamp(26px,3.4vw,32px);font-weight:700;
+    font-variant-numeric:tabular-nums;line-height:1.2;
+    transition:color .25s ease;
+  }
+  .contact-phone .num svg{
+    width:22px;height:22px;flex-shrink:0;
+    stroke:var(--accent);fill:none;stroke-width:2;
+    transition:transform .25s ease;
+  }
   .contact-phone .num:hover{color:var(--accent);}
+  .contact-phone .num:hover svg{transform:scale(1.1);}
+  .contact-phone .note{
+    display:block;margin-top:8px;font-size:12.5px;color:var(--ink-soft);
+  }
 
   form.lp-form{display:flex;flex-direction:column;gap:20px;}
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
@@ -908,8 +936,15 @@
       <h2>まずは無料診断から。</h2>
       <p>外壁・内装・水回りのリフォームから、火災保険を活用した修繕まで、まずはお気軽にご相談ください。ご自宅・店舗の状態を無料で診断いたします。</p>
       <div class="contact-phone">
-        <span class="label">Tel</span>
-        <a href="tel:08048264902" class="num">080-4826-4902</a>
+        <span class="direct">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c0 9 7 16 16 16l3-5-6-2-2 2c-3-1-5-3-6-6l2-2-2-6-5 3z"/></svg>
+          担当者直通
+        </span>
+        <a href="tel:08048264902" class="num">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c0 9 7 16 16 16l3-5-6-2-2 2c-3-1-5-3-6-6l2-2-2-6-5 3z"/></svg>
+          080-4826-4902
+        </a>
+        <span class="note">お急ぎの方は、お電話でもご相談いただけます。</span>
       </div>
     </div>
     <div class="reveal reveal-delay1">
