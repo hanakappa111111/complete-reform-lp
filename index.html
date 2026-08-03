@@ -277,51 +277,116 @@
   .pain-item p{font-size:15px;color:var(--ink);}
 
   /* ---------- Signs（塗り替えのサイン） ---------- */
+  .signs{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .signs-lede{margin-top:18px;font-size:15.5px;color:var(--ink-soft);max-width:62ch;}
+
+  /* 導入：住まいのイラスト＋吹き出し */
+  .signs-intro{
+    margin-top:44px;display:grid;grid-template-columns:1fr 380px;gap:44px;align-items:center;
+  }
+  @media (max-width:900px){.signs-intro{grid-template-columns:1fr;gap:28px;}}
+  .signs-figure{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;
+  }
+  .signs-figure svg{width:100%;height:auto;display:block;}
+  .signs-figure figcaption{
+    margin-top:10px;font-size:12px;color:var(--ink-soft);text-align:center;
+  }
+
+  /* 吹き出し */
+  .bubble{
+    position:relative;padding:16px 20px;border-radius:14px;
+    background:var(--paper);border:1px solid var(--line);
+    font-size:14.5px;color:var(--ink);
+  }
+  .bubble::after{
+    content:"";position:absolute;left:34px;bottom:-8px;width:14px;height:14px;
+    background:var(--paper);
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    transform:rotate(45deg);
+  }
+  .bubble--accent{
+    background:var(--accent);border-color:var(--accent);color:#fbf4ee;font-weight:600;
+  }
+  .bubble--accent::after{background:var(--accent);border-color:var(--accent);}
+  /* 話し手（アイコン＋吹き出しの組） */
+  .say{display:flex;gap:16px;align-items:flex-end;}
+  .say .avatar{
+    width:56px;height:56px;flex-shrink:0;border-radius:50%;overflow:hidden;
+    background:var(--paper);border:1px solid var(--line);
+  }
+  .say .avatar svg{width:100%;height:100%;display:block;}
+  .say .bubble{flex:1;}
 
   /* 危険性の注意喚起 */
   .signs-warn{
-    margin-top:36px;padding:26px 28px;
+    margin-top:44px;padding:26px 28px 26px 30px;
     border:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
     border-left:4px solid var(--accent);
     border-radius:var(--radius);
-    background:color-mix(in srgb, var(--accent) 4%, var(--paper));
+    background:var(--paper);
+    display:flex;gap:20px;align-items:flex-start;
   }
+  .signs-warn > svg{width:34px;height:34px;flex-shrink:0;stroke:var(--accent);fill:none;stroke-width:1.6;}
   .signs-warn h3{font-size:18px;font-family:var(--sans);font-weight:700;}
   .signs-warn p{margin-top:10px;font-size:14.5px;color:var(--ink-soft);max-width:70ch;}
+  @media (max-width:560px){.signs-warn{flex-direction:column;gap:12px;}}
 
   /* セルフチェック */
   .selfcheck{
-    margin-top:20px;padding:24px 28px;
-    border:1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+    margin-top:20px;padding:26px 28px;
+    border:2px dashed color-mix(in srgb, var(--accent) 45%, transparent);
     border-radius:var(--radius);
-    display:flex;gap:20px;align-items:center;
+    background:color-mix(in srgb, var(--accent) 5%, var(--paper));
+    display:flex;gap:22px;align-items:center;
   }
-  .selfcheck svg{width:38px;height:38px;flex-shrink:0;stroke:var(--accent);fill:none;stroke-width:1.5;}
+  .selfcheck > svg{width:44px;height:44px;flex-shrink:0;stroke:var(--accent);fill:none;stroke-width:1.5;}
   .selfcheck .label{
-    display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;
-    color:var(--accent);
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--accent);color:#fbf4ee;
+    font-size:11.5px;font-weight:700;letter-spacing:.06em;
+    padding:4px 12px;border-radius:20px;
   }
-  .selfcheck p{margin-top:6px;font-size:14.5px;color:var(--ink);}
-  @media (max-width:560px){.selfcheck{flex-direction:column;align-items:flex-start;gap:12px;}}
+  .selfcheck p{margin-top:10px;font-size:15px;color:var(--ink);}
+  @media (max-width:560px){.selfcheck{flex-direction:column;align-items:flex-start;gap:14px;}}
 
   /* サイン一覧 */
   .signs-head{
-    margin-top:52px;display:flex;align-items:center;gap:14px;
+    margin-top:56px;display:flex;align-items:center;gap:14px;
   }
   .signs-head h3{font-size:19px;font-family:var(--sans);font-weight:700;white-space:nowrap;}
+  .signs-head .tag{
+    font-size:11.5px;font-weight:700;letter-spacing:.06em;
+    background:var(--accent);color:#fbf4ee;padding:4px 11px;border-radius:20px;
+  }
   .signs-head::after{content:"";flex:1;height:1px;background:var(--line);}
   .signs-grid{
-    margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;
+    margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;
   }
   .sign-card{
+    position:relative;
     border:1px solid var(--line);border-radius:var(--radius);
-    padding:22px 20px;background:var(--paper-2);
-    transition:border-color .3s ease, transform .3s ease;
+    padding:26px 20px 22px;background:var(--paper);
+    transition:border-color .3s ease, transform .3s ease, box-shadow .3s ease;
   }
-  .sign-card:hover{border-color:var(--accent);transform:translateY(-3px);}
-  .sign-card svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.5;}
-  .sign-card h4{font-size:15.5px;font-family:var(--sans);font-weight:700;margin-top:14px;}
+  .sign-card:hover{
+    border-color:var(--accent);transform:translateY(-4px);
+    box-shadow:0 16px 30px -20px var(--shadow);
+  }
+  /* 通し番号（枠にまたがせる） */
+  .sign-card .no{
+    position:absolute;top:-10px;left:18px;
+    font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;
+    background:var(--accent);color:#fbf4ee;padding:3px 9px;border-radius:20px;
+  }
+  .sign-card .icon{
+    width:54px;height:54px;border-radius:50%;
+    background:color-mix(in srgb, var(--accent) 10%, transparent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .sign-card .icon svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.5;}
+  .sign-card h4{font-size:15.5px;font-family:var(--sans);font-weight:700;margin-top:16px;}
   .sign-card p{font-size:13px;color:var(--ink-soft);margin-top:8px;}
 
   /* 塗り替え時期の目安 */
@@ -333,15 +398,47 @@
     padding:20px;background:var(--paper);
     display:flex;flex-direction:column;gap:6px;
   }
-  .cycle-card .material{font-size:13.5px;font-weight:700;color:var(--ink);}
+  .cycle-card .material{
+    display:flex;align-items:flex-start;gap:7px;
+    font-size:13px;font-weight:700;color:var(--ink);
+    min-height:2.9em;line-height:1.45;
+  }
+  .cycle-card .material svg{width:17px;height:17px;stroke:var(--accent);fill:none;stroke-width:1.6;flex-shrink:0;}
   .cycle-card .years{
-    font-family:var(--serif);font-size:26px;font-weight:700;color:var(--accent);
+    font-family:var(--serif);font-size:27px;font-weight:700;color:var(--accent);
     font-variant-numeric:tabular-nums;line-height:1.2;
   }
   .cycle-card .years small{font-size:14px;font-weight:600;margin-left:2px;}
+  /* 年数のバー表現（0〜20年を基準） */
+  .cycle-card .bar{height:5px;border-radius:3px;background:var(--paper-2);overflow:hidden;}
+  .cycle-card .bar span{display:block;height:100%;background:var(--accent);opacity:.75;}
   .cycle-card p{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
   .cycle-note{margin-top:18px;font-size:12.5px;color:var(--ink-soft);}
-  .signs-actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:40px;}
+
+  /* 締めのひとこと＋CTA */
+  .signs-close{
+    margin-top:52px;padding:32px;
+    border-radius:var(--radius);background:var(--deep);color:var(--deep-ink);
+    display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;
+  }
+  .signs-close .avatar{
+    width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;
+    background:var(--paper);
+  }
+  .signs-close .avatar svg{width:100%;height:100%;display:block;}
+  .signs-close h3{color:var(--deep-ink);font-size:20px;font-family:var(--sans);font-weight:700;}
+  .signs-close p{color:var(--deep-ink-soft);font-size:14px;margin-top:8px;}
+  .signs-actions{display:flex;flex-wrap:wrap;gap:12px;}
+  .signs-close .btn-ghost{border-color:var(--line-deep);color:var(--deep-ink);}
+  .signs-close .btn-ghost:hover{border-color:var(--accent-2);color:var(--accent-2);}
+  @media (max-width:900px){
+    .signs-close{grid-template-columns:auto 1fr;gap:20px;}
+    .signs-actions{grid-column:1 / -1;}
+  }
+  @media (max-width:560px){
+    .signs-close{grid-template-columns:1fr;text-align:left;}
+    .signs-actions .btn{flex:1;}
+  }
 
   /* ---------- Reasons ---------- */
   .reasons-grid{
@@ -696,12 +793,83 @@
     <h2 class="reveal reveal-delay1" style="font-size:clamp(24px,3vw,34px);margin-top:16px;">築10年以上のお住まいは、<br>塗り替えのサインが出ていませんか？</h2>
     <p class="signs-lede reveal reveal-delay1">外壁や屋根は、紫外線や雨風、北海道の雪によって少しずつ傷んでいきます。見た目の変化は、塗膜が寿命を迎えたサインかもしれません。</p>
 
-    <div class="signs-warn reveal reveal-delay1">
-      <h3>ひび割れは、塗装だけでは直らないことがあります</h3>
-      <p>劣化が進んで外壁材や屋根材そのものが傷むと、塗装では対応できず張り替えが必要になり、費用も大きくなります。さらに放置すると雨水が内部に入り込み、柱や土台といった交換のきかない部分の腐食につながります。早めの点検が、結果的に費用を抑えることにつながります。</p>
+    <!-- 導入：住まいの図解＋吹き出し -->
+    <div class="signs-intro">
+      <div class="reveal reveal-delay1">
+        <div class="say" style="margin-bottom:26px;">
+          <span class="avatar">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <rect width="64" height="64" fill="#eef2f2"/>
+              <circle cx="32" cy="26" r="11" fill="#f0c39a"/>
+              <path d="M21 24a11 11 0 0122 0z" fill="#5c6b74"/>
+              <circle cx="28" cy="27" r="1.4" fill="#2b2b2b"/><circle cx="36" cy="27" r="1.4" fill="#2b2b2b"/>
+              <path d="M28 33q4 3 8 0" fill="none" stroke="#2b2b2b" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M14 64c0-11 8-18 18-18s18 7 18 18z" fill="#8a9a78"/>
+            </svg>
+          </span>
+          <p class="bubble">前に塗ってから、もう10年以上。<br>そろそろなのかな…？</p>
+        </div>
+        <p style="font-size:14.5px;color:var(--ink-soft);">塗装は見た目を整えるだけでなく、<strong style="color:var(--ink);">雨水から建物を守る役割</strong>を担っています。まずは、ご自宅にこんな変化が出ていないか見てみてください。</p>
+      </div>
+
+      <figure class="signs-figure reveal reveal-delay2" style="margin:0;">
+        <svg viewBox="0 0 470 330" role="img" aria-label="住まいの中で劣化が出やすい場所を示した図">
+          <defs>
+            <linearGradient id="sgSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#eef4f6"/><stop offset="100%" stop-color="#f7f5ef"/>
+            </linearGradient>
+          </defs>
+          <rect x="60" y="10" width="350" height="270" fill="url(#sgSky)" rx="4"/>
+
+          <!-- 屋根 -->
+          <path d="M118 132L235 60L352 132Z" fill="#4a5a66"/>
+          <path d="M128 128L235 62L342 128" fill="none" stroke="#fdfcf9" stroke-width="3"/>
+          <!-- 外壁 -->
+          <rect x="140" y="132" width="190" height="118" fill="#efe3d2" stroke="#00000014"/>
+          <!-- コーキング目地 -->
+          <line x1="235" y1="132" x2="235" y2="250" stroke="#c9b79c" stroke-width="4" stroke-dasharray="7 5"/>
+          <!-- 窓・ドア -->
+          <rect x="160" y="152" width="44" height="38" fill="#dbe7ea" stroke="#00000018"/>
+          <rect x="266" y="152" width="44" height="38" fill="#dbe7ea" stroke="#00000018"/>
+          <rect x="215" y="208" width="40" height="42" fill="#8a9a78"/>
+          <rect x="120" y="250" width="230" height="8" fill="#dcd6c8"/>
+
+          <g font-family="var(--sans)">
+            <!-- 1 屋根 -->
+            <path d="M296 100H372" stroke="#3d6b52" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <circle cx="285" cy="100" r="11" fill="#3d6b52"/>
+            <text x="285" y="104" text-anchor="middle" fill="#fbf4ee" font-size="11" font-weight="700">1</text>
+            <text x="378" y="97" fill="#20252b" font-size="12" font-weight="700">屋根</text>
+            <text x="378" y="111" fill="#666d73" font-size="9.5">色あせ・割れ</text>
+
+            <!-- 2 外壁 -->
+            <path d="M151 205H92" stroke="#3d6b52" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <circle cx="162" cy="205" r="11" fill="#3d6b52"/>
+            <text x="162" y="209" text-anchor="middle" fill="#fbf4ee" font-size="11" font-weight="700">2</text>
+            <text x="86" y="202" text-anchor="end" fill="#20252b" font-size="12" font-weight="700">外壁</text>
+            <text x="86" y="216" text-anchor="end" fill="#666d73" font-size="9.5">粉ふき・ひび割れ</text>
+
+            <!-- 3 コーキング -->
+            <path d="M235 285V262" stroke="#3d6b52" stroke-width="1.4" stroke-dasharray="4 3"/>
+            <circle cx="235" cy="296" r="11" fill="#3d6b52"/>
+            <text x="235" y="300" text-anchor="middle" fill="#fbf4ee" font-size="11" font-weight="700">3</text>
+            <text x="256" y="294" fill="#20252b" font-size="12" font-weight="700">コーキング</text>
+            <text x="256" y="307" fill="#666d73" font-size="9.5">目地の切れ・やせ</text>
+          </g>
+        </svg>
+        <figcaption>劣化が出やすいのは、この3か所です</figcaption>
+      </figure>
     </div>
 
-    <div class="selfcheck reveal reveal-delay1">
+    <div class="signs-warn reveal">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v5"/><circle cx="12" cy="17.6" r="0.4" fill="currentColor"/></svg>
+      <div>
+        <h3>ひび割れは、塗装だけでは直らないことがあります</h3>
+        <p>劣化が進んで外壁材や屋根材そのものが傷むと、塗装では対応できず張り替えが必要になり、費用も大きくなります。さらに放置すると雨水が内部に入り込み、柱や土台といった交換のきかない部分の腐食につながります。早めの点検が、結果的に費用を抑えることにつながります。</p>
+      </div>
+    </div>
+
+    <div class="selfcheck reveal">
       <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 013 0V12V3.5a1.5 1.5 0 013 0V12V5.5a1.5 1.5 0 013 0V14c0 4-2.5 7-6 7s-6-2.5-7-5l-1.2-2.6a1.6 1.6 0 012.7-1.6L8 13z"/></svg>
       <div>
         <span class="label">おうちでできる かんたんセルフチェック</span>
@@ -709,90 +877,134 @@
       </div>
     </div>
 
-    <div class="signs-head reveal"><h3>外壁に出るサイン</h3></div>
+    <div class="signs-head reveal"><span class="tag">外壁</span><h3>こんな症状が出ていませんか？</h3></div>
     <div class="signs-grid">
       <div class="sign-card reveal">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 013 0V12V3.5a1.5 1.5 0 013 0V12V5.5a1.5 1.5 0 013 0V14c0 4-2.5 7-6 7s-6-2.5-7-5l-1.2-2.6a1.6 1.6 0 012.7-1.6L8 13z"/></svg>
+        <span class="no">SIGN 01</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 013 0V12V3.5a1.5 1.5 0 013 0V12V5.5a1.5 1.5 0 013 0V14c0 4-2.5 7-6 7s-6-2.5-7-5l-1.2-2.6a1.6 1.6 0 012.7-1.6L8 13z"/></svg></span>
         <h4>チョーキング</h4>
         <p>紫外線や雨で塗膜が劣化し、表面が粉状になる現象。さわると手に白い粉が付きます。</p>
       </div>
       <div class="sign-card reveal reveal-delay1">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3l-4 7h5l-3 11"/><path d="M4 4v16M20 4v16"/></svg>
+        <span class="no">SIGN 02</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3l-4 7h5l-3 11"/><path d="M4 4v16M20 4v16"/></svg></span>
         <h4>ひび割れ</h4>
         <p>目立つひび割れは要注意。雨水が入り込み、内部の劣化や腐食の原因になります。</p>
       </div>
       <div class="sign-card reveal reveal-delay2">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v18M15 3v18"/><path d="M9 8h6M9 14h6"/></svg>
+        <span class="no">SIGN 03</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v18M15 3v18"/><path d="M9 8h6M9 14h6"/></svg></span>
         <h4>コーキングの劣化</h4>
         <p>外壁の継ぎ目を埋める充填材がやせたり切れたりすると、そこから雨水が侵入します。</p>
       </div>
       <div class="sign-card reveal">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4 0-7-3-7-7 0-4 3-8 7-11 4 3 7 7 7 11 0 4-3 7-7 7z"/><path d="M12 21V9"/></svg>
+        <span class="no">SIGN 04</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4 0-7-3-7-7 0-4 3-8 7-11 4 3 7 7 7 11 0 4-3 7-7 7z"/><path d="M12 21V9"/></svg></span>
         <h4>藻・コケの発生</h4>
         <p>日当たりや水はけの悪い面に出やすく、汚れが目立つうえ外壁材の劣化を早めます。</p>
       </div>
       <div class="sign-card reveal reveal-delay1">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c3-3 6 3 9 0s6 3 9 0"/><path d="M3 16c3-3 6 3 9 0s6 3 9 0"/></svg>
+        <span class="no">SIGN 05</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c3-3 6 3 9 0s6 3 9 0"/><path d="M3 16c3-3 6 3 9 0s6 3 9 0"/></svg></span>
         <h4>そり返り・浮き</h4>
         <p>サイディングボードが劣化して反り、外壁に浮きが出ている状態です。</p>
       </div>
     </div>
 
-    <div class="signs-head reveal"><h3>屋根に出るサイン</h3></div>
+    <div class="signs-head reveal"><span class="tag">屋根</span><h3>屋根はご自身で見えにくい場所です</h3></div>
     <div class="signs-grid">
       <div class="sign-card reveal">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M9 19v-9h6v9" opacity=".5"/></svg>
+        <span class="no">SIGN 06</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M9 19v-9h6v9" opacity=".5"/></svg></span>
         <h4>変色・色あせ</h4>
         <p>紫外線で塗膜の樹脂が劣化して起こります。放置するとカビや藻が付き汚れが広がります。</p>
       </div>
       <div class="sign-card reveal reveal-delay1">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M13 10l-3 4h4l-3 5"/></svg>
+        <span class="no">SIGN 07</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M13 10l-3 4h4l-3 5"/></svg></span>
         <h4>割れ</h4>
         <p>遠目でも分かる割れは要注意。屋根材が機能せず、雨水の浸入が疑われます。</p>
       </div>
       <div class="sign-card reveal reveal-delay2">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M8 14c1.5 1 3 1 4.5 0s3-1 4.5 0"/></svg>
+        <span class="no">SIGN 08</span>
+        <span class="icon"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M8 14c1.5 1 3 1 4.5 0s3-1 4.5 0"/></svg></span>
         <h4>剥がれ・錆び</h4>
         <p>金属屋根で塗膜が剥がれると、雨で腐食が進行。広がると雨漏りにつながります。</p>
       </div>
     </div>
+    <div class="say reveal" style="margin-top:26px;max-width:560px;">
+      <span class="avatar">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" fill="#eef2f2"/>
+          <circle cx="32" cy="26" r="11" fill="#f0c39a"/>
+          <path d="M21 24a11 11 0 0122 0z" fill="#fdfcf9" stroke="#dd5330" stroke-width="1.5"/>
+          <ellipse cx="32" cy="25" rx="13" ry="2.6" fill="#3d6b52"/>
+          <circle cx="28" cy="28" r="1.4" fill="#2b2b2b"/><circle cx="36" cy="28" r="1.4" fill="#2b2b2b"/>
+          <path d="M28 33q4 3 8 0" fill="none" stroke="#2b2b2b" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 64c0-11 8-18 18-18s18 7 18 18z" fill="#3d6b52"/>
+        </svg>
+      </span>
+      <p class="bubble bubble--accent">屋根は下から見えないぶん、傷みに気づきにくい場所。<br>調査のときにあわせて確認しますので、ご安心ください。</p>
+    </div>
 
-    <div class="signs-head reveal"><h3>塗り替え時期の目安</h3></div>
+    <div class="signs-head reveal"><span class="tag">目安</span><h3>塗り替え時期のめやす</h3></div>
     <div class="cycle-grid">
       <div class="cycle-card reveal">
-        <span class="material">外壁／モルタル</span>
+        <span class="material"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16"/><path d="M4 12h16"/></svg>外壁／モルタル</span>
         <span class="years">8〜10<small>年</small></span>
+        <span class="bar"><span style="width:50%"></span></span>
         <p>表面のひび割れや欠けが目立ってきます。</p>
       </div>
       <div class="cycle-card reveal reveal-delay1">
-        <span class="material">外壁／窯業系サイディング</span>
+        <span class="material"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16"/><path d="M4 10h16M4 15h16"/></svg>外壁／窯業系サイディング</span>
         <span class="years">10〜15<small>年</small></span>
+        <span class="bar"><span style="width:75%"></span></span>
         <p>紫外線で表面が劣化し、手に白い粉が付きます。</p>
       </div>
       <div class="cycle-card reveal reveal-delay2">
-        <span class="material">外壁／金属サイディング</span>
+        <span class="material"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16"/><path d="M8 4v16M16 4v16"/></svg>外壁／金属サイディング</span>
         <span class="years">15〜20<small>年</small></span>
+        <span class="bar"><span style="width:100%"></span></span>
         <p>錆びや目地の劣化が見られたら早めの塗装を。</p>
       </div>
       <div class="cycle-card reveal">
-        <span class="material">屋根／カラー鉄板</span>
+        <span class="material"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg>屋根／カラー鉄板</span>
         <span class="years">7〜8<small>年</small></span>
+        <span class="bar"><span style="width:40%"></span></span>
         <p>錆び・色あせ・塗膜の剥がれから破損の恐れ。</p>
       </div>
       <div class="cycle-card reveal reveal-delay1">
-        <span class="material">屋根／スレート瓦</span>
+        <span class="material"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M5 14h14"/></svg>屋根／スレート瓦</span>
         <span class="years">10〜15<small>年</small></span>
+        <span class="bar"><span style="width:75%"></span></span>
         <p>コケや色あせ、ひび割れから雨漏りにつながります。</p>
       </div>
     </div>
     <p class="cycle-note reveal">※ 年数はあくまで一般的な目安です。お住まいの環境や日当たり、地域によって劣化の進み方は変わります。気になる症状があれば、年数に関わらず一度ご相談ください。</p>
 
-    <div class="signs-actions reveal">
-      <a href="#contact" class="btn btn-primary">無料で診断を依頼する</a>
-      <a href="tel:08048264902" class="btn btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 5c0 9 7 16 16 16l3-5-6-2-2 2c-3-1-5-3-6-6l2-2-2-6-5 3z"/></svg>
-        電話で相談する
-      </a>
+    <div class="signs-close reveal">
+      <span class="avatar">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" fill="#eef2f2"/>
+          <circle cx="32" cy="26" r="11" fill="#f0c39a"/>
+          <path d="M21 24a11 11 0 0122 0z" fill="#fdfcf9" stroke="#dd5330" stroke-width="1.5"/>
+          <ellipse cx="32" cy="25" rx="13" ry="2.6" fill="#3d6b52"/>
+          <circle cx="28" cy="28" r="1.4" fill="#2b2b2b"/><circle cx="36" cy="28" r="1.4" fill="#2b2b2b"/>
+          <path d="M28 33q4 3 8 0" fill="none" stroke="#2b2b2b" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M14 64c0-11 8-18 18-18s18 7 18 18z" fill="#3d6b52"/>
+        </svg>
+      </span>
+      <div>
+        <h3>ひとつでも当てはまったら、お気軽にご相談ください</h3>
+        <p>現地調査・お見積りは無料です。今すぐ工事をしなくても、「あとどれくらい持つか」だけの確認でも構いません。</p>
+      </div>
+      <div class="signs-actions">
+        <a href="#contact" class="btn btn-primary">無料で診断を依頼する</a>
+        <a href="tel:08048264902" class="btn btn-ghost">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M3 5c0 9 7 16 16 16l3-5-6-2-2 2c-3-1-5-3-6-6l2-2-2-6-5 3z"/></svg>
+          電話で相談する
+        </a>
+      </div>
     </div>
   </div>
 </section>
