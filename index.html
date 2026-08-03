@@ -317,15 +317,32 @@
   .flow-deep h2{color:var(--deep-ink);}
   .flow-list{margin-top:60px;display:flex;flex-direction:column;}
   .flow-item{
-    display:grid;grid-template-columns:90px 1fr;gap:28px;
+    display:grid;grid-template-columns:90px minmax(0,1fr) 300px;gap:28px 32px;
     padding:32px 0;border-top:1px solid var(--line-deep);
-    align-items:flex-start;
+    align-items:center;
   }
+  @media (max-width:980px){.flow-item{align-items:start;}}
   .flow-item:last-child{border-bottom:1px solid var(--line-deep);}
   .flow-item .num{font-family:var(--serif);font-size:38px;color:var(--accent-2);line-height:1;}
   .flow-item h3{color:var(--deep-ink);font-size:19px;font-family:var(--sans);font-weight:600;}
   .flow-item p{color:var(--deep-ink-soft);font-size:14.5px;margin-top:10px;max-width:60ch;}
-  @media (max-width:640px){.flow-item{grid-template-columns:1fr;gap:8px;}}
+  /* 各ステップの写真（右側） */
+  .flow-photo{
+    aspect-ratio:4/3;overflow:hidden;
+    border-radius:var(--radius);
+    border:1px solid var(--line-deep);
+    background:color-mix(in srgb, var(--deep-ink) 7%, transparent);
+  }
+  .flow-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  @media (max-width:980px){
+    /* 画像は行を折り返して本文の下へ */
+    .flow-item{grid-template-columns:90px minmax(0,1fr);}
+    .flow-photo{grid-column:2 / -1;max-width:420px;}
+  }
+  @media (max-width:640px){
+    .flow-item{grid-template-columns:1fr;gap:8px;}
+    .flow-photo{grid-column:1 / -1;max-width:none;margin-top:14px;}
+  }
 
   /* ---------- Cases ---------- */
   .cases-lede{margin-top:16px;color:var(--ink-soft);font-size:15px;max-width:60ch;}
@@ -717,22 +734,27 @@
       <div class="flow-item reveal">
         <span class="num">01</span>
         <div><h3>お問い合わせ・ヒアリング</h3><p>お電話またはフォームより、気になる箇所や現在の状況をお聞かせください。</p></div>
+        <div class="flow-photo"><img src="img/flow01.jpg" alt="お問い合わせ・ヒアリングの様子" loading="lazy"/></div>
       </div>
       <div class="flow-item reveal reveal-delay1">
         <span class="num">02</span>
         <div><h3>現地調査・診断</h3><p>専門スタッフが現地を訪問し、劣化や損傷の状況を確認。雪害・風災などが疑われる場合は、火災保険の対象になるかもあわせて診断します。</p></div>
+        <div class="flow-photo"><img src="img/flow02.jpg" alt="現地調査・診断の様子" loading="lazy"/></div>
       </div>
       <div class="flow-item reveal reveal-delay2">
         <span class="num">03</span>
         <div><h3>ご提案・お見積り</h3><p>ご要望に合わせたプランとお見積りをご提案します。火災保険の対象となる場合は、申請書類の準備から保険会社とのやり取りまでサポートします。</p></div>
+        <div class="flow-photo"><img src="img/flow03.jpg" alt="ご提案・お見積りの様子" loading="lazy"/></div>
       </div>
       <div class="flow-item reveal reveal-delay3">
         <span class="num">04</span>
         <div><h3>ご契約・施工</h3><p>内容にご納得いただいた上でご契約。経験豊富な職人が丁寧に施工いたします。</p></div>
+        <div class="flow-photo"><img src="img/flow04.jpg" alt="ご契約・施工の様子" loading="lazy"/></div>
       </div>
       <div class="flow-item reveal reveal-delay4">
         <span class="num">05</span>
         <div><h3>完了・アフターフォロー</h3><p>施工完了後も、気になる点があればお気軽にご連絡いただけるフォロー体制を整えています。</p></div>
+        <div class="flow-photo"><img src="img/flow05.jpg" alt="完了・アフターフォローの様子" loading="lazy"/></div>
       </div>
     </div>
   </div>
