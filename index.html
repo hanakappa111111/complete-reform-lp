@@ -312,11 +312,24 @@
   .bubble--accent::after{background:var(--accent);border-color:var(--accent);}
   /* 話し手（アイコン＋吹き出しの組） */
   .say{display:flex;gap:16px;align-items:flex-end;}
-  /* 人物イラストは切り抜かずそのまま見せる */
-  .say .avatar{width:86px;flex-shrink:0;}
-  .say .avatar img{width:100%;height:auto;display:block;}
+  /* 人物イラストは白い円の中に統一サイズで表示 */
+  .say .avatar,
+  .signs-close .avatar{
+    width:88px;height:88px;flex-shrink:0;
+    border-radius:50%;overflow:hidden;
+    background:#fff;border:1px solid var(--line);
+  }
+  .say .avatar img,
+  .signs-close .avatar img{
+    width:100%;height:100%;display:block;
+    object-fit:cover;object-position:center top;
+  }
   .say .bubble{flex:1;}
-  @media (max-width:560px){.say{gap:12px;}.say .avatar{width:64px;}}
+  @media (max-width:560px){
+    .say{gap:12px;}
+    .say .avatar,
+    .signs-close .avatar{width:68px;height:68px;}
+  }
 
   /* 危険性の注意喚起 */
   .signs-warn{
@@ -420,13 +433,6 @@
     border-radius:var(--radius);background:var(--deep);color:var(--deep-ink);
     display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;
   }
-  /* 濃色背景でイラストが沈まないよう明るい台座を敷く */
-  .signs-close .avatar{
-    width:100px;flex-shrink:0;align-self:flex-end;
-    background:var(--paper);border-radius:var(--radius);
-    padding:10px 10px 0;
-  }
-  .signs-close .avatar img{width:100%;height:auto;display:block;}
   .signs-close h3{color:var(--deep-ink);font-size:20px;font-family:var(--sans);font-weight:700;}
   .signs-close p{color:var(--deep-ink-soft);font-size:14px;margin-top:8px;}
   .signs-actions{display:flex;flex-wrap:wrap;gap:12px;}
