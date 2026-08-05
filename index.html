@@ -312,23 +312,21 @@
   .bubble--accent::after{background:var(--accent);border-color:var(--accent);}
   /* 話し手（アイコン＋吹き出しの組） */
   .say{display:flex;gap:16px;align-items:flex-end;}
-  /* 人物イラストは白い円の中に統一サイズで表示 */
+  /* 人物イラストは切り抜かずそのまま表示（3か所とも同じ高さに揃える） */
   .say .avatar,
   .signs-close .avatar{
-    width:88px;height:88px;flex-shrink:0;
-    border-radius:50%;overflow:hidden;
-    background:#fff;border:1px solid var(--line);
+    height:104px;flex-shrink:0;
+    display:flex;align-items:flex-end;
   }
   .say .avatar img,
   .signs-close .avatar img{
-    width:100%;height:100%;display:block;
-    object-fit:cover;object-position:center top;
+    height:100%;width:auto;display:block;
   }
   .say .bubble{flex:1;}
   @media (max-width:560px){
     .say{gap:12px;}
     .say .avatar,
-    .signs-close .avatar{width:68px;height:68px;}
+    .signs-close .avatar{height:76px;}
   }
 
   /* 危険性の注意喚起 */
